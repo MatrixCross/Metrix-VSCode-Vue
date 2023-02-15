@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
 import path = require("path");
-import MissionVue from "../vue/src/components/Mission.vue";
+import { Login } from "../api/user";
 
 export class TodoListWebView implements vscode.WebviewViewProvider {
   public static viewId: string = "todolist-view";
@@ -33,10 +33,8 @@ export class TodoListWebView implements vscode.WebviewViewProvider {
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     async function MissionAddHandle() {
-      const message = {
-        command: 'hello, webview'
-      };
-      webviewView.webview.postMessage(message);
+      const res = await Login('lirh42', '123456');
+      webviewView.webview.postMessage(res.data);
     }
     
     // 处理插件api交互
