@@ -12,7 +12,8 @@ export async function Login(username: string, password: string) {
             password: password,
         },
     });
-    console.log('请求结果', res);
+    
+    
 
     return res;
 }
