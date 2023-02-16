@@ -27,14 +27,11 @@
 <script lang="ts" setup>
 import { defineComponent, ref, defineEmits } from "vue";
 import { FormInst, NInput, NForm, NFormItem, NButton, useMessage } from "naive-ui";
-import { useRouter } from "vue-router";
 
 const emits = defineEmits(['choose'])
 
 const vscodeApi = acquireVsCodeApi();
-
-const router = useRouter();
-// const message = useMessage();
+const message = useMessage();
 
 const formRef = ref<FormInst | null>(null);
 let formValue = ref({
@@ -73,14 +70,18 @@ function handleValidateClick(e: MouseEvent) {
 }
 
 window.addEventListener('message', event => {
+  console.log('加了', event)
     // 处理从主程序接收到的消息
-    const message = event.data;  
+    const msg = event.data;  
     // 获取消息内容
-    if (message.cmd === 'login' && message.res === 'success') {
+    if (msg.cmd === 'login' && msg.res === 'success') {
         // 登录成功
-        
+        message.success('登陆成功')
+        setTimeout(() => {
+          emits('choose', 'mission')
+        }, 3000) 
     } else {
-        // message.error('登录不成功')
+        message.error('登录不成功')
     }
   });
 </script>
