@@ -2,9 +2,11 @@
 import * as vscode from "vscode";
 
 export async function setStorage(context: vscode.ExtensionContext, key: string, value: string) {
-    context.globalState.update(key, value); 
+    const res = await context.globalState.update(key, value); 
+    return res;
 }
 
 export async function getStorage(context: vscode.ExtensionContext, key: string) {
-    context.globalState.get(key);
+    const res = await context.globalState.get(key);
+    return res;
 }
